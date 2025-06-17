@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -19,11 +21,13 @@ import jakarta.persistence.Table;
 @Table(name = "Customers")
 public class Customer {
     @Id
-    private Integer customerId; // Same as userId
+    private Long customerId; // Same as userId
 
     @OneToOne
     @MapsId
+    
     @JoinColumn(name = "customer_id")
+    @JsonBackReference
     private User user;
 
     private String firstName;
@@ -50,11 +54,11 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Claim> claims;
 
-    public Integer getCustomerId() {
+    public Long getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(Integer customerId) {
+	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;
 	}
 
